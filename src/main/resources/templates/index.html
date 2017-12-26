@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/bootstrap.min.css"/>
+    <title>Статистика по запросу</title>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/controller.js"></script>
+    <script src="/js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<h1 align="center">Подсчет статистики по запросу</h1>
+
+<div ng-app="app" ng-controller="contr">
+    <div class="container">
+        <p>Поле запроса:
+        <form name="form">
+            <input id="getData" name="query" ng-model="query" required class="form-control">
+            <span ng-show="form.query.$touched && form.query.$invalid"></span><br>
+            <span><button type="submit" class="btn btn-info" ng-click="getStat()">Получить статистику</button></span>
+        </form>
+        <br>
+        <span><button type="submit" class="btn btn-info"
+                      ng-click="getStatAll()">Получить таблицу запросов</button></span>
+        </p>
+        </form>
+    </div>
+
+    <div id="load"></div>
+    <div class="container" id="tableData" hidden>
+        <table class="table table table-striped table-bordered">
+            <thead>
+            <tr class="info">
+                <th><p class="text-center">Индекс</p></th>
+                <th width="200"><p class="text-center">
+                    <a href="#" ng-click="sortType = 'query'; sortReverse = !sortReverse">
+                        Текст запроса
+                        <span ng-show="sortType == 'query' && !sortReverse"></span>
+                        <span ng-show="sortType == 'query' && sortReverse"></span>
+                    </a>
+                </p></th>
+                <th><p class="text-center">
+                    <a href="#" ng-click="sortType = 'queryStat'; sortReverse = !sortReverse">
+                        Частота запроса
+                        <span ng-show="sortType == 'queryStat' && !sortReverse"></span>
+                        <span ng-show="sortType == 'queryStat' && sortReverse"></span>
+                    </a>
+                </p></th>
+                <th><p class="text-center">
+                    <a href="#" ng-click="sortType = 'userCount'; sortReverse = !sortReverse">
+                        Количество пользователей, задававших запрос
+                        <span ng-show="sortType == 'userCount' && !sortReverse"></span>
+                        <span ng-show="sortType == 'userCount' && sortReverse"></span>
+                    </a></p></th>
+                <th><p class="text-center">
+                    <a href="#" ng-click="sortType = 'countClick'; sortReverse = !sortReverse">
+                        Количество кликов
+                        <span ng-show="sortType == 'countClick' && !sortReverse"></span>
+                        <span ng-show="sortType == 'countClick' && sortReverse"></span>
+                    </a>
+                </p></th>
+                <th><p class="text-center">
+                    <a href="#" ng-click="sortType = 'averageDocumentClick'; sortReverse = !sortReverse">
+                        Средняя позиция документа с кликом
+                        <span ng-show="sortType == 'averageDocumentClick' && !sortReverse"></span>
+                        <span ng-show="sortType == 'averageDocumentClick' && sortReverse"></span>
+                    </a>
+                </p></th>
+                <th><p class="text-center">
+                    <a href="#" ng-click="sortType = 'noClickQuery'; sortReverse = !sortReverse">
+                        Частота запроса без кликов
+                        <span ng-show="sortType == 'noClickQuery' && !sortReverse"></span>
+                        <span ng-show="sortType == 'noClickQuery' && sortReverse"></span>
+                    </a>
+                </p></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="td in tablesData | orderBy:sortType:sortReverse">
+                <td align="center">{{ $index + 1 }}</td>
+                <td align="center">{{td.query}}</td>
+                <td align="center">{{td.queryStat}}</td>
+                <td align="center">{{td.userCount}}</td>
+                <td align="center">{{td.countClick}}</td>
+                <td align="center">{{td.averageDocumentClick}}</td>
+                <td align="center">{{td.noClickQuery}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
