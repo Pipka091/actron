@@ -17,5 +17,6 @@ public class UtilsRegex {
 	public static final String sizeClickRegex = "sizeClick=\\{(.*?)\\}";
 	public static final String avrDocRegex = "avrDoc=\\{(.*?)\\}";
 	public static final String sizeNoQueryRegex = "sizeNoQuery=\\{(.*?)\\}";
+	public static final String queryRegex = "queryText=\\{(.*?)\\}";
 
 }

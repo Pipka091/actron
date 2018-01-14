@@ -13,18 +13,9 @@
 
 <div ng-app="app" ng-controller="contr">
     <div class="container">
-        <p>Поле запроса:
-        <form name="form">
-            <input id="getData" name="query" ng-model="query" required class="form-control">
-            <span ng-show="form.query.$touched && form.query.$invalid"></span><br>
-            <span><button type="submit" class="btn btn-info" ng-click="getStat()">Получить статистику</button></span>
-        </form>
-        <br>
         <span><button type="submit" class="btn btn-info"
                       ng-click="getStatAll()">Получить таблицу запросов</button></span>
-        </p>
-        </form>
-    </div>
+    </div><br>
 
     <div id="load"></div>
     <div class="container" id="tableData" hidden>

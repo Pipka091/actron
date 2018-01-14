@@ -5,32 +5,6 @@ app.controller('contr', function ($scope, $http) {
 	$scope.sortType     = 'query';
 	$scope.sortReverse  = false;
 
-	//выгрузка по запросу
-	$scope.getStat = function () {
-
-		$("#tableData").attr('hidden', 'true');
-
-		if ($scope.query) {
-
-			$('#load').html("<div align='center'><img src='/img/load.gif' height='80' width='80' /></div>");
-
-			$http.get("getStat?query=" + $scope.query)
-					.then(function (response) {
-
-						$scope.tablesData = response.data;
-						//"Эмуляция работы сервера"
-						setTimeout(function () {
-							$('#load').html(" ");
-							$("#tableData").removeAttr('hidden');
-						}, 3000);
-
-					}, function (response) {
-						//выводим ошибку
-						$('#load').html("<div align='center'><b>По данному запросу ничего не найдено.</b></div>");
-					});
-		}
-	};
-
 	//выгрузка всей таблички
 	$scope.getStatAll = function () {
 

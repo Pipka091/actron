@@ -1,5 +1,6 @@
 package ru.test;
 
+import org.springframework.stereotype.Component;
 import ru.test.api.Store;
 import ru.test.model.DataLog;
 
@@ -13,44 +14,17 @@ import java.util.Map;
  */
 public class StoreImpl implements Store {
 
-	public HashMap<String, String> mapKey = new HashMap<String, String>();
-	public HashMap<String, List<DataLog>> store = new HashMap<String, List<DataLog>>();
-	public HashMap<String, String> storeResult = new HashMap<String, String>();
+	public HashMap<String, List<String>> storeLine = new HashMap<String, List<String>>();
+;
 
 	@Override
-	public void collect(String key, DataLog value) {
-		if (store.get(key) == null) {
-			List<DataLog> list = new ArrayList<DataLog>();
+	public void collect(String key, String value) {
+		if (storeLine.get(key) == null) {
+			List<String> list = new ArrayList<String>();
 			list.add(value);
-			store.put(key, list);
+			storeLine.put(key, list);
 		} else {
-			store.get(key).add(value);
+			storeLine.get(key).add(value);
 		}
 	}
-
-	@Override
-	public void setResult(String key, String result) {
-		storeResult.put(key, result);
-	}
-
-	@Override
-	public String getResult(String key) {
-		return storeResult.get(key);
-	}
-
-	@Override
-	public Map<String, String> getResult() {
-		return storeResult;
-	}
-
-	@Override
-	public Map<String, String> getMapKey() {
-		return mapKey;
-	}
-
-	@Override
-	public void cleanStore() {
-		store = new HashMap<String, List<DataLog>>();
-	}
-
 }

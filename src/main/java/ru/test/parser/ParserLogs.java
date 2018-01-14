@@ -21,7 +21,7 @@ public class ParserLogs {
 	public DataLog parseLogLine(String line, String key) {
 		DataLog dataLog = new DataLog();
 
-		if(!key.equals(ALL)) {
+		if (!key.equals(ALL)) {
 			if (getRegexResult("\\{(" + key + ")\\}", line).isEmpty()) {
 				return null;
 			}
