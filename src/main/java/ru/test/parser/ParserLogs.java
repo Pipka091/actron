@@ -90,6 +90,7 @@ public class ParserLogs {
 		return "";
 	}
 
+
 	private List<String> getRegexListResult(String regexExp, String text) {
 		List<String> listStr = new ArrayList<String>();
 		Matcher mat = Pattern.compile(regexExp).matcher(text);

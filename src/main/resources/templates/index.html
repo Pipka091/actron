@@ -1,85 +1,226 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/bootstrap.min.css"/>
-    <title>Статистика по запросу</title>
-    <script src="/js/angular.min.js"></script>
-    <script src="/js/controller.js"></script>
-    <script src="/js/jquery-3.2.1.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MCP Reports</title>
+    <meta name="description" content="MCP Reports">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/flag-icon.min.css">
+    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="assets/scss/style.css">
+    <link href="assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
-<h1 align="center">Подсчет статистики по запросу</h1>
 
-<div ng-app="app" ng-controller="contr">
-    <div class="container">
-        <span><button type="submit" class="btn btn-info"
-                      ng-click="getStatAll()">Получить таблицу запросов</button></span>
-    </div><br>
 
-    <div id="load"></div>
-    <div class="container" id="tableData" hidden>
-        <table class="table table table-striped table-bordered">
-            <thead>
-            <tr class="info">
-                <th><p class="text-center">Индекс</p></th>
-                <th width="200"><p class="text-center">
-                    <a href="#" ng-click="sortType = 'query'; sortReverse = !sortReverse">
-                        Текст запроса
-                        <span ng-show="sortType == 'query' && !sortReverse"></span>
-                        <span ng-show="sortType == 'query' && sortReverse"></span>
+<!-- Left Panel -->
+
+<aside id="left-panel" class="left-panel">
+    <nav class="navbar navbar-expand-sm navbar-default">
+
+        <div class="navbar-header">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="/charts">MPC Reports</a>
+        </div>
+
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <h3 class="menu-title">МЕНЮ</h3><!-- /.menu-title -->
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Components</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-puzzle-piece"></i><a href="/">Админ панель</a></li>
+                        <li><i class="menu-icon fa fa-line-chart"></i><a href="/charts.html">Графики</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Карты</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Настройки</a></li>
+                        <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
+                        <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
+                        <li><i class="fa fa-share-square-o"></i><a href="ui-social-buttons.html">Social Buttons</a></li>
+                        <li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">Cards</a></li>
+                        <li><i class="fa fa-exclamation-triangle"></i><a href="ui-alerts.html">Alerts</a></li>
+                        <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
+                        <li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
+                        <li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
+                        <li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
+                        <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
+                        <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                    </ul>
+                </li>
+
+                <h3 class="menu-title">Icons</h3><!-- /.menu-title -->
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Font Awesome</a></li>
+                        <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a>
+                </li>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Chart JS</a></li>
+                        <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Flot Chart</a></li>
+                        <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Peity Chart</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Google Maps</a></li>
+                        <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a></li>
+                    </ul>
+                </li>
+                <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
+                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
+                        <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside><!-- /#left-panel -->
+
+<!-- Left Panel -->
+
+<!-- Right Panel -->
+
+<div id="right-panel" class="right-panel">
+
+    <!-- Header-->
+    <header id="header" class="header">
+
+        <div class="header-menu">
+
+            <div class="col-sm-7">
+                <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+                <div class="header-left">
+                    <button class="search-trigger"><i class="fa fa-search"></i></button>
+                    <div class="form-inline">
+                        Actron
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-5">
+                <div class="user-area dropdown float-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
                     </a>
-                </p></th>
-                <th><p class="text-center">
-                    <a href="#" ng-click="sortType = 'queryStat'; sortReverse = !sortReverse">
-                        Частота запроса
-                        <span ng-show="sortType == 'queryStat' && !sortReverse"></span>
-                        <span ng-show="sortType == 'queryStat' && sortReverse"></span>
+
+                    <div class="user-menu dropdown-menu">
+                        <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+
+                        <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+
+                        <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+
+                        <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                    </div>
+                </div>
+
+                <div class="language-select dropdown" id="language-select">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown"  id="language" aria-haspopup="true" aria-expanded="true">
+                        <i class="flag-icon flag-icon-us"></i>
                     </a>
-                </p></th>
-                <th><p class="text-center">
-                    <a href="#" ng-click="sortType = 'userCount'; sortReverse = !sortReverse">
-                        Количество пользователей, задававших запрос
-                        <span ng-show="sortType == 'userCount' && !sortReverse"></span>
-                        <span ng-show="sortType == 'userCount' && sortReverse"></span>
-                    </a></p></th>
-                <th><p class="text-center">
-                    <a href="#" ng-click="sortType = 'countClick'; sortReverse = !sortReverse">
-                        Количество кликов
-                        <span ng-show="sortType == 'countClick' && !sortReverse"></span>
-                        <span ng-show="sortType == 'countClick' && sortReverse"></span>
-                    </a>
-                </p></th>
-                <th><p class="text-center">
-                    <a href="#" ng-click="sortType = 'averageDocumentClick'; sortReverse = !sortReverse">
-                        Средняя позиция документа с кликом
-                        <span ng-show="sortType == 'averageDocumentClick' && !sortReverse"></span>
-                        <span ng-show="sortType == 'averageDocumentClick' && sortReverse"></span>
-                    </a>
-                </p></th>
-                <th><p class="text-center">
-                    <a href="#" ng-click="sortType = 'noClickQuery'; sortReverse = !sortReverse">
-                        Частота запроса без кликов
-                        <span ng-show="sortType == 'noClickQuery' && !sortReverse"></span>
-                        <span ng-show="sortType == 'noClickQuery' && sortReverse"></span>
-                    </a>
-                </p></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="td in tablesData | orderBy:sortType:sortReverse">
-                <td align="center">{{ $index + 1 }}</td>
-                <td align="center">{{td.query}}</td>
-                <td align="center">{{td.queryStat}}</td>
-                <td align="center">{{td.userCount}}</td>
-                <td align="center">{{td.countClick}}</td>
-                <td align="center">{{td.averageDocumentClick}}</td>
-                <td align="center">{{td.noClickQuery}}</td>
-            </tr>
-            </tbody>
-        </table>
+                    <div class="dropdown-menu" aria-labelledby="language" >
+                        <div class="dropdown-item">
+                            <span class="flag-icon flag-icon-fr"></span>
+                        </div>
+                        <div class="dropdown-item">
+                            <i class="flag-icon flag-icon-es"></i>
+                        </div>
+                        <div class="dropdown-item">
+                            <i class="flag-icon flag-icon-us"></i>
+                        </div>
+                        <div class="dropdown-item">
+                            <i class="flag-icon flag-icon-it"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </header><!-- /header -->
+
+    <!-- body right-panel -->
+
+
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title" v-if="headerText">Создать новый отчет</strong>
+        </div>
+
+        <div class="card-body">
+
+            <div class="col-6 col-md-3">
+                <select name="selectLg" id="selectСharts" class="form-control-lg form-control">
+                    <option value="0">Вид отчета</option>
+                    <option value="1">General Report</option>
+                </select>
+            </div>
+
+        <div>
     </div>
 
-</div>
+
+    <!-- /body right-panel -->
+
+</div><!-- /#right-panel -->
+
+<!-- Right Panel -->
+
+<script src="assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+<script src="assets/js/plugins.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script type="text/javascript"  src="https://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript"  src="https://code.highcharts.com/modules/series-label.js"></script>
+<script type="text/javascript"  src="https://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript"  src="https://code.highcharts.com/modules/export-data.js"></script>
+<script type="text/javascript"  src="/js/сharts.js"></script>
+<!--<script type="text/javascript"  src="https://code.jquery.com/jquery-3.3.1.js"></script>-->
+
+
 </body>
 </html>

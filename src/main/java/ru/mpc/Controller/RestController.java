@@ -1,4 +1,4 @@
-package ru.test.Controller;
+package ru.mpc.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +13,7 @@ import java.util.Map;
  * Рест контроллер
  */
 @org.springframework.web.bind.annotation.RestController
+@RequestMapping("/api")
 public class RestController {
 
 	private StoreSave store = new StoreSave();
